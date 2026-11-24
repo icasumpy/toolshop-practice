@@ -37,9 +37,15 @@ def names_contain(home, keyword):
 
 
 # ---------------------------------------------------------------- B3.2: the two missing steps
-# Run pytest first: pytest-bdd tells you exactly which step text has no definition.
-# TODO: @then('the search caption mentions "{keyword}"')
-# TODO: @then('I see the message "{message}"')
+
+@then(parsers.parse('the search caption mentions "{keyword}"'))
+def search_caption_mentions(home, keyword):
+    expect(home.search_caption).to_contain_text(keyword)
+
+
+@then(parsers.parse('I see the message "{message}"'))
+def see_message(home, message):
+    expect(home.no_results).to_have_text(message)
 
 
 # ---------------------------------------------------------------- B3.4: steps for cart.feature
